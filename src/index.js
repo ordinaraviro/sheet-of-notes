@@ -37,23 +37,23 @@ const note = {
     newLi.appendChild(buttonRemoveSub);
     let buttonRemove = document.createElement("button");
     buttonRemove.classList.add("remove");
+    buttonRemove.onclick = function () {
+      let li = this.parentNode;
+      li.parentNode.removeChild(li);
+    };
     buttonRemove.appendChild(document.createTextNode("remove"));
     newLi.appendChild(buttonRemove);
     document.querySelector(".list-of-notes").appendChild(newLi);
     document.querySelector(".text-note-to-add").value = "";
   },
-  bb() {},
-  remove() {},
+  start() {},
+  remove(e) {
+    e.parentNode.removeChild(this);
+  },
   addSublist() {},
   removeSublist() {},
   up() {},
-  down() {},
-  action(el) {
-    const target = el.target;
-    if (target.classList.contains("btn-note-to-add")) {
-      note.add();
-    }
-  }
+  down() {}
 };
 
 document.addEventListener("click", function (event) {
@@ -73,6 +73,5 @@ document.addEventListener("click", function (event) {
     alert("btn-remove-sublist");
   }
   if (event.target.classList.contains("remove")) {
-    alert("remove");
   }
 });
