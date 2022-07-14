@@ -5,3 +5,11 @@ body {
 li {
   list-style: none;
 }
+
+.note {
+  font-size: 2rem;
+}
+
+.note-text {
+  color: firebrick;
+}

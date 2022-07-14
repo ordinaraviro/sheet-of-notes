@@ -12,11 +12,35 @@ document.getElementById("app").innerHTML = `
 const note = {
   add() {
     let newLi = document.createElement("li");
-    let inputValue = document.getElementsByClassName("text-note-to-add").value;
+    let span = document.createElement("span");
+    let inputValue = document.querySelector(".text-note-to-add").value;
     let noteText = document.createTextNode(inputValue);
-    newLi.appendChild(noteText);
+    newLi.classList.add("note");
+    span.appendChild(noteText);
+    span.classList.add("note-text");
+    newLi.appendChild(span);
+    let buttonUp = document.createElement("button");
+    buttonUp.classList.add("up");
+    buttonUp.appendChild(document.createTextNode("up"));
+    newLi.appendChild(buttonUp);
+    let buttonDown = document.createElement("button");
+    buttonDown.classList.add("down");
+    buttonDown.appendChild(document.createTextNode("down"));
+    newLi.appendChild(buttonDown);
+    let buttonAddSub = document.createElement("button");
+    buttonAddSub.classList.add("btn-add-sublist");
+    buttonAddSub.appendChild(document.createTextNode("add sublist"));
+    newLi.appendChild(buttonAddSub);
+    let buttonRemoveSub = document.createElement("button");
+    buttonRemoveSub.classList.add("btn-remove-sublist");
+    buttonRemoveSub.appendChild(document.createTextNode("remove sublist"));
+    newLi.appendChild(buttonRemoveSub);
+    let buttonRemove = document.createElement("button");
+    buttonRemove.classList.add("remove");
+    buttonRemove.appendChild(document.createTextNode("remove"));
+    newLi.appendChild(buttonRemove);
     document.querySelector(".list-of-notes").appendChild(newLi);
-    document.getElementsByClassName("text-note-to-add").value = "";
+    document.querySelector(".text-note-to-add").value = "";
   },
   bb() {},
   remove() {},
@@ -34,7 +58,7 @@ const note = {
 
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-note-to-add")) {
-    alert("add");
+    note.add();
   }
   if (event.target.classList.contains("up")) {
     alert("up");
