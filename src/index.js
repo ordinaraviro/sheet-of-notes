@@ -43,7 +43,11 @@ const note = {
     };
     buttonRemove.appendChild(document.createTextNode("remove"));
     newLi.appendChild(buttonRemove);
-    document.querySelector(".list-of-notes").appendChild(newLi);
+
+    let ul = document.querySelector(".list-of-notes");
+    let refEl = document.querySelector(".note-to-add");
+    ul.insertBefore(newLi, refEl);
+
     document.querySelector(".text-note-to-add").value = "";
   },
   start() {},
