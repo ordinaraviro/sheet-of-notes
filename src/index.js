@@ -21,6 +21,7 @@ const note = {
     newLi.appendChild(span);
     let buttonUp = document.createElement("button");
     buttonUp.classList.add("up");
+    buttonUp.onclick = note.up;
     buttonUp.appendChild(document.createTextNode("up"));
     newLi.appendChild(buttonUp);
     let buttonDown = document.createElement("button");
@@ -56,7 +57,12 @@ const note = {
   addSublist() {},
   removeSublist() {},
   up() {
-    // previousNode = node.previousSibling;
+    let ul = document.querySelector(".list-of-notes");
+    let li = this.parentNode;
+    let preEl = li.previousSibling;
+    let emptyLi = document.createElement("li");
+    ul.insertBefore(emptyLi, preEl);
+    ul.replaceChild(li, emptyLi);
   },
   down() {
     let ul = document.querySelector(".list-of-notes");
@@ -73,9 +79,9 @@ document.addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-note-to-add")) {
     note.add();
   }
-  if (event.target.classList.contains("up")) {
-    alert("up");
-  }
+  // if (event.target.classList.contains("up")) {
+  //   alert("up");
+  // }
   // if (event.target.classList.contains("down")) {
   //   note.down();
   // }
