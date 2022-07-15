@@ -25,6 +25,7 @@ const note = {
     newLi.appendChild(buttonUp);
     let buttonDown = document.createElement("button");
     buttonDown.classList.add("down");
+    buttonDown.onclick = note.down;
     buttonDown.appendChild(document.createTextNode("down"));
     newLi.appendChild(buttonDown);
     let buttonAddSub = document.createElement("button");
@@ -37,10 +38,7 @@ const note = {
     newLi.appendChild(buttonRemoveSub);
     let buttonRemove = document.createElement("button");
     buttonRemove.classList.add("remove");
-    buttonRemove.onclick = function () {
-      let li = this.parentNode;
-      li.parentNode.removeChild(li);
-    };
+    buttonRemove.onclick = note.remove;
     buttonRemove.appendChild(document.createTextNode("remove"));
     newLi.appendChild(buttonRemove);
 
@@ -51,13 +49,24 @@ const note = {
     document.querySelector(".text-note-to-add").value = "";
   },
   start() {},
-  remove(e) {
-    e.parentNode.removeChild(this);
+  remove() {
+    let li = this.parentNode;
+    li.parentNode.removeChild(li);
   },
   addSublist() {},
   removeSublist() {},
-  up() {},
-  down() {}
+  up() {
+    // previousNode = node.previousSibling;
+  },
+  down() {
+    let ul = document.querySelector(".list-of-notes");
+    let li = this.parentNode;
+    let nextEl = li.nextSibling;
+    let afterNextEl = nextEl.nextSibling;
+    let emptyLi = document.createElement("li");
+    ul.insertBefore(emptyLi, afterNextEl);
+    ul.replaceChild(li, emptyLi);
+  }
 };
 
 document.addEventListener("click", function (event) {
@@ -67,9 +76,9 @@ document.addEventListener("click", function (event) {
   if (event.target.classList.contains("up")) {
     alert("up");
   }
-  if (event.target.classList.contains("down")) {
-    alert("down");
-  }
+  // if (event.target.classList.contains("down")) {
+  //   note.down();
+  // }
   if (event.target.classList.contains("btn-add-sublist")) {
     alert("btn-add-sublist");
   }
