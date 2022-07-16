@@ -10,8 +10,7 @@ const note = {
     note.appendChild(noteContent);
 
     let span = document.createElement("span");
-    let inputValue = document.querySelector(".text-note-to-add").value;
-    let noteText = document.createTextNode(inputValue);
+    let noteText = document.createTextNode(this.previousSibling.value);
     span.appendChild(noteText);
     span.classList.add("note-text");
     noteContent.appendChild(span);
@@ -44,7 +43,7 @@ const note = {
     let refEl = document.querySelector(".note-to-add");
     ul.insertBefore(note, refEl);
 
-    document.querySelector(".text-note-to-add").value = "";
+    this.previousSibling.value = "";
   },
   start() {},
   remove() {
