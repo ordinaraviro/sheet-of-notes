@@ -39,16 +39,19 @@ const note = {
     buttonRemove.appendChild(document.createTextNode("remove"));
     noteContent.appendChild(buttonRemove);
 
-    let ul = document.querySelector(".list-of-notes");
-    let refEl = document.querySelector(".note-to-add");
-    ul.insertBefore(note, refEl);
+    let paOfBtn = this.parentNode;
+    let ul = paOfBtn.parentNode;
+    ul.insertBefore(note, paOfBtn);
 
     this.previousSibling.value = "";
   },
   start() {},
   remove() {
-    let li = this.parentNode;
-    li.parentNode.removeChild(li);
+    alert("hi");
+    // let div = this.parentNode;
+    // let li = div.parentNode;
+    // li.remove();
+    // li.parentNode.removeChild(li);
   },
   addSublist() {},
   removeSublist() {},
