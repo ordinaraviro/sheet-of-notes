@@ -2,41 +2,47 @@ import "./styles.css";
 
 const note = {
   add() {
-    let newLi = document.createElement("li");
+    let note = document.createElement("li");
+    note.classList.add("note");
+
+    let noteContent = document.createElement("div");
+    noteContent.classList.add("note-content");
+    note.appendChild(noteContent);
+
     let span = document.createElement("span");
     let inputValue = document.querySelector(".text-note-to-add").value;
     let noteText = document.createTextNode(inputValue);
-    newLi.classList.add("note");
     span.appendChild(noteText);
     span.classList.add("note-text");
-    newLi.appendChild(span);
+    noteContent.appendChild(span);
+
     let buttonUp = document.createElement("button");
     buttonUp.classList.add("up");
     buttonUp.onclick = note.up;
     buttonUp.appendChild(document.createTextNode("up"));
-    newLi.appendChild(buttonUp);
+    noteContent.appendChild(buttonUp);
     let buttonDown = document.createElement("button");
     buttonDown.classList.add("down");
     buttonDown.onclick = note.down;
     buttonDown.appendChild(document.createTextNode("down"));
-    newLi.appendChild(buttonDown);
+    noteContent.appendChild(buttonDown);
     let buttonAddSub = document.createElement("button");
     buttonAddSub.classList.add("btn-add-sublist");
     buttonAddSub.appendChild(document.createTextNode("add sublist"));
-    newLi.appendChild(buttonAddSub);
+    noteContent.appendChild(buttonAddSub);
     let buttonRemoveSub = document.createElement("button");
     buttonRemoveSub.classList.add("btn-remove-sublist");
     buttonRemoveSub.appendChild(document.createTextNode("remove sublist"));
-    newLi.appendChild(buttonRemoveSub);
+    noteContent.appendChild(buttonRemoveSub);
     let buttonRemove = document.createElement("button");
     buttonRemove.classList.add("remove");
     buttonRemove.onclick = note.remove;
     buttonRemove.appendChild(document.createTextNode("remove"));
-    newLi.appendChild(buttonRemove);
+    noteContent.appendChild(buttonRemove);
 
     let ul = document.querySelector(".list-of-notes");
     let refEl = document.querySelector(".note-to-add");
-    ul.insertBefore(newLi, refEl);
+    ul.insertBefore(note, refEl);
 
     document.querySelector(".text-note-to-add").value = "";
   },
@@ -66,22 +72,23 @@ const note = {
   }
 };
 
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("btn-note-to-add")) {
-    note.add();
-  }
-  // if (event.target.classList.contains("up")) {
-  //   alert("up");
-  // }
-  // if (event.target.classList.contains("down")) {
-  //   note.down();
-  // }
-  if (event.target.classList.contains("btn-add-sublist")) {
-    alert("btn-add-sublist");
-  }
-  if (event.target.classList.contains("btn-remove-sublist")) {
-    alert("btn-remove-sublist");
-  }
-  if (event.target.classList.contains("remove")) {
-  }
-});
+document.querySelector(".btn-note-to-add").onclick = note.add;
+// document.addEventListener("click", function (event) {
+//   if (event.target.classList.contains("btn-note-to-add")) {
+//     note.add();
+//   }
+//   if (event.target.classList.contains("up")) {
+//     alert("up");
+//   }
+//   if (event.target.classList.contains("down")) {
+//     note.down();
+//   }
+//   if (event.target.classList.contains("btn-add-sublist")) {
+//     alert("btn-add-sublist");
+//   }
+//   if (event.target.classList.contains("btn-remove-sublist")) {
+//     alert("btn-remove-sublist");
+//   }
+//   if (event.target.classList.contains("remove")) {
+//   }
+// });
