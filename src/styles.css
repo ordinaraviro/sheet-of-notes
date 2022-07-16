@@ -3,13 +3,14 @@ body {
 }
 
 li {
-  list-style: none;
 }
 
 .note {
-  font-size: 2rem;
 }
 
 .note-text {
+  display: inline-block;
   color: firebrick;
+  width: calc(100vw - 450px);
+  max-width: 350px;
 }
