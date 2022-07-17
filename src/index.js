@@ -32,6 +32,7 @@ const methods = {
     noteContent.appendChild(buttonAddSub);
     let buttonRemoveSub = document.createElement("button");
     buttonRemoveSub.classList.add("btn-remove-sublist");
+    buttonRemoveSub.classList.add("hide");
     buttonRemoveSub.onclick = methods.removeSublist;
     buttonRemoveSub.appendChild(document.createTextNode("remove sublist"));
     noteContent.appendChild(buttonRemoveSub);
@@ -73,12 +74,18 @@ const methods = {
     addBtn.appendChild(document.createTextNode("Add"));
     addBtn.onclick = methods.add;
     newLi.appendChild(addBtn);
+
+    this.nextSibling.classList.remove("hide");
+    this.classList.add("hide");
   },
   removeSublist() {
     let div = this.parentNode;
     let li = div.parentNode;
     let scope = div.nextSibling;
     li.removeChild(scope);
+
+    this.previousSibling.classList.remove("hide");
+    this.classList.add("hide");
   },
   up() {
     let div = this.parentNode;
@@ -103,22 +110,3 @@ const methods = {
 };
 
 document.querySelector(".btn-note-to-add").onclick = methods.add;
-// document.addEventListener("click", function (event) {
-//   if (event.target.classList.contains("btn-note-to-add")) {
-//     note.add();
-//   }
-//   if (event.target.classList.contains("up")) {
-//     alert("up");
-//   }
-//   if (event.target.classList.contains("down")) {
-//     note.down();
-//   }
-//   if (event.target.classList.contains("btn-add-sublist")) {
-//     alert("btn-add-sublist");
-//   }
-//   if (event.target.classList.contains("btn-remove-sublist")) {
-//     alert("btn-remove-sublist");
-//   }
-//   if (event.target.classList.contains("remove")) {
-//   }
-// });

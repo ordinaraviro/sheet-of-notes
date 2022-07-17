@@ -14,3 +14,7 @@ li {
   width: calc(100vw - 450px);
   max-width: 350px;
 }
+
+.hide {
+  display: none;
+}
