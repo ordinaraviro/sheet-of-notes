@@ -27,6 +27,7 @@ const methods = {
     noteContent.appendChild(buttonDown);
     let buttonAddSub = document.createElement("button");
     buttonAddSub.classList.add("btn-add-sublist");
+    buttonAddSub.onclick = methods.addSublist;
     buttonAddSub.appendChild(document.createTextNode("add sublist"));
     noteContent.appendChild(buttonAddSub);
     let buttonRemoveSub = document.createElement("button");
@@ -51,7 +52,27 @@ const methods = {
     let li = div.parentNode;
     li.parentNode.removeChild(li);
   },
-  addSublist() {},
+  addSublist() {
+    let div = this.parentNode;
+    let li = div.parentNode;
+    let divSub = document.createElement("div");
+    divSub.classList.add("note-sublist-content");
+    li.appendChild(divSub);
+    let newUl = document.createElement("ul");
+    newUl.classList.add("list-of-notes");
+    divSub.appendChild(newUl);
+    let newLi = document.createElement("li");
+    newLi.classList.add("note-to-add");
+    newUl.appendChild(newLi);
+    let input = document.createElement("input");
+    input.classList.add("text-note-to-add");
+    newLi.appendChild(input);
+    let addBtn = document.createElement("button");
+    addBtn.classList.add("btn-note-to-add");
+    addBtn.appendChild(document.createTextNode("Add"));
+    addBtn.onclick = methods.add;
+    newLi.appendChild(addBtn);
+  },
   removeSublist() {},
   up() {
     let div = this.parentNode;
@@ -69,7 +90,7 @@ const methods = {
     let nextEl = li.nextSibling;
     let afterNextEl = nextEl.nextSibling;
     let emptyLi = document.createElement("li");
-    emptyLi.appendChild(document.createTextNode("down"));
+    emptyLi.appendChild(document.createTextNode("down error"));
     ul.insertBefore(emptyLi, afterNextEl);
     ul.replaceChild(li, emptyLi);
   }
