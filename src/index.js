@@ -32,6 +32,7 @@ const methods = {
     noteContent.appendChild(buttonAddSub);
     let buttonRemoveSub = document.createElement("button");
     buttonRemoveSub.classList.add("btn-remove-sublist");
+    buttonRemoveSub.onclick = methods.removeSublist;
     buttonRemoveSub.appendChild(document.createTextNode("remove sublist"));
     noteContent.appendChild(buttonRemoveSub);
     let buttonRemove = document.createElement("button");
@@ -73,7 +74,12 @@ const methods = {
     addBtn.onclick = methods.add;
     newLi.appendChild(addBtn);
   },
-  removeSublist() {},
+  removeSublist() {
+    let div = this.parentNode;
+    let li = div.parentNode;
+    let scope = div.nextSibling;
+    li.removeChild(scope);
+  },
   up() {
     let div = this.parentNode;
     let li = div.parentNode;
