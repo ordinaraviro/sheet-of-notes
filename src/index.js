@@ -51,15 +51,17 @@ const methods = {
     let ul = paOfBtn.parentNode;
 
     if (paOfBtn.previousSibling) {
-      alert(
-        paOfBtn.previousSibling.firstChild.firstChild.nextSibling.nextSibling
-          .classList
-      );
       paOfBtn.previousSibling.firstChild.firstChild.nextSibling.nextSibling.classList.remove(
         "hide"
       );
     }
+
     ul.insertBefore(note, paOfBtn);
+
+    if (paOfBtn.previousSibling === ul.firstChild) {
+      buttonUp.classList.add("hide");
+    }
+
     this.previousSibling.value = "";
   },
   start() {},
