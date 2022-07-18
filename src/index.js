@@ -112,6 +112,11 @@ const methods = {
     emptyLi.appendChild(document.createTextNode("up error"));
     ul.insertBefore(emptyLi, preEl);
     ul.replaceChild(li, emptyLi);
+
+    if (this.nextSibling.classList.contains("hide")) {
+      this.nextSibling.classList.remove("hide");
+      preEl.firstChild.firstChild.nextSibling.nextSibling.classList.add("hide");
+    }
   },
   down() {
     let div = this.parentNode;
