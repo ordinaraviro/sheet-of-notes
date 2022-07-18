@@ -1,11 +1,7 @@
 import "./styles.css";
 
-document.getElementById("app").innerHTML = `
-<ul class="list-of-notes"><li class="note-to-add"><input type="text" class="text-note-to-add" /><button class="btn-note-to-add">Add</button></li></ul>
-`;
-
 const methods = {
-  add() {
+  add(e) {
     let note = document.createElement("li");
     note.classList.add("note");
 
@@ -14,40 +10,35 @@ const methods = {
     note.appendChild(noteContent);
 
     let span = document.createElement("span");
-    let noteText = document.createTextNode(this.previousSibling.value);
+    let noteText = document.createTextNode(e.previousSibling.value);
     span.appendChild(noteText);
     span.classList.add("note-text");
     noteContent.appendChild(span);
 
     let buttonUp = document.createElement("button");
     buttonUp.classList.add("up");
-    buttonUp.onclick = methods.up;
     buttonUp.appendChild(document.createTextNode("up"));
     noteContent.appendChild(buttonUp);
     let buttonDown = document.createElement("button");
     buttonDown.classList.add("down");
     buttonDown.classList.add("hide");
-    buttonDown.onclick = methods.down;
     buttonDown.appendChild(document.createTextNode("down"));
     noteContent.appendChild(buttonDown);
     let buttonAddSub = document.createElement("button");
     buttonAddSub.classList.add("btn-add-sublist");
-    buttonAddSub.onclick = methods.addSublist;
     buttonAddSub.appendChild(document.createTextNode("add sublist"));
     noteContent.appendChild(buttonAddSub);
     let buttonRemoveSub = document.createElement("button");
     buttonRemoveSub.classList.add("btn-remove-sublist");
     buttonRemoveSub.classList.add("hide");
-    buttonRemoveSub.onclick = methods.removeSublist;
     buttonRemoveSub.appendChild(document.createTextNode("remove sublist"));
     noteContent.appendChild(buttonRemoveSub);
     let buttonRemove = document.createElement("button");
     buttonRemove.classList.add("remove");
-    buttonRemove.onclick = methods.remove;
     buttonRemove.appendChild(document.createTextNode("remove"));
     noteContent.appendChild(buttonRemove);
 
-    let paOfBtn = this.parentNode;
+    let paOfBtn = e.parentNode;
     let ul = paOfBtn.parentNode;
 
     if (paOfBtn.previousSibling) {
@@ -62,16 +53,55 @@ const methods = {
       buttonUp.classList.add("hide");
     }
 
-    this.previousSibling.value = "";
+    e.previousSibling.value = "";
+    methods.save();
   },
-  start() {},
-  remove() {
-    let div = this.parentNode;
+  start() {
+    let storageList = localStorage.getItem("savedListOfNotes");
+    if (storageList) {
+      document.querySelector(".list-of-notes-app").innerHTML = storageList;
+    } else {
+      document.getElementById("app").innerHTML = `
+<ul class="list-of-notes"><li class="note-to-add"><input type="text" class="text-note-to-add" /><button class="btn-note-to-add">Add</button></li></ul>
+`;
+    }
+    document.querySelector(".list-of-notes-app").onclick = methods.action;
+  },
+  save() {
+    localStorage.setItem(
+      "savedListOfNotes",
+      document.querySelector(".list-of-notes-app").innerHTML
+    );
+  },
+  remove(e) {
+    let div = e.parentNode;
     let li = div.parentNode;
+    if (
+      e.previousSibling.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      ) &&
+      !e.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      )
+    ) {
+      li.nextSibling.firstChild.firstChild.nextSibling.classList.add("hide");
+    }
+    if (
+      e.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      ) &&
+      !e.previousSibling.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      )
+    ) {
+      li.previousSibling.firstChild.firstChild.nextSibling.nextSibling.classList.add(
+        "hide"
+      );
+    }
     li.parentNode.removeChild(li);
   },
-  addSublist() {
-    let div = this.parentNode;
+  addSublist(e) {
+    let div = e.parentNode;
     let li = div.parentNode;
     let divSub = document.createElement("div");
     divSub.classList.add("note-sublist-content");
@@ -88,23 +118,22 @@ const methods = {
     let addBtn = document.createElement("button");
     addBtn.classList.add("btn-note-to-add");
     addBtn.appendChild(document.createTextNode("Add"));
-    addBtn.onclick = methods.add;
     newLi.appendChild(addBtn);
 
-    this.nextSibling.classList.remove("hide");
-    this.classList.add("hide");
+    e.nextSibling.classList.remove("hide");
+    e.classList.add("hide");
   },
-  removeSublist() {
-    let div = this.parentNode;
+  removeSublist(e) {
+    let div = e.parentNode;
     let li = div.parentNode;
     let scope = div.nextSibling;
     li.removeChild(scope);
 
-    this.previousSibling.classList.remove("hide");
-    this.classList.add("hide");
+    e.previousSibling.classList.remove("hide");
+    e.classList.add("hide");
   },
-  up() {
-    let div = this.parentNode;
+  up(e) {
+    let div = e.parentNode;
     let li = div.parentNode;
     let ul = li.parentNode;
     let preEl = li.previousSibling;
@@ -113,18 +142,18 @@ const methods = {
     ul.insertBefore(emptyLi, preEl);
     ul.replaceChild(li, emptyLi);
 
-    if (this.nextSibling.classList.contains("hide")) {
-      this.nextSibling.classList.remove("hide");
+    if (e.nextSibling.classList.contains("hide")) {
+      e.nextSibling.classList.remove("hide");
       preEl.firstChild.firstChild.nextSibling.nextSibling.classList.add("hide");
     }
 
     if (preEl.firstChild.firstChild.nextSibling.classList.contains("hide")) {
       preEl.firstChild.firstChild.nextSibling.classList.remove("hide");
-      this.classList.add("hide");
+      e.classList.add("hide");
     }
   },
-  down() {
-    let div = this.parentNode;
+  down(e) {
+    let div = e.parentNode;
     let li = div.parentNode;
     let ul = li.parentNode;
     let nextEl = li.nextSibling;
@@ -135,14 +164,14 @@ const methods = {
     ul.replaceChild(li, emptyLi);
 
     if (afterNextEl.classList.contains("note-to-add")) {
-      this.classList.add("hide");
+      e.classList.add("hide");
       nextEl.firstChild.firstChild.nextSibling.nextSibling.classList.remove(
         "hide"
       );
     }
 
-    if (this.previousSibling.classList.contains("hide")) {
-      this.previousSibling.classList.remove("hide");
+    if (e.previousSibling.classList.contains("hide")) {
+      e.previousSibling.classList.remove("hide");
       nextEl.firstChild.firstChild.nextSibling.classList.add("hide");
     }
   },
@@ -154,7 +183,27 @@ const methods = {
         this.classList.add("hide");
       }
     }
+  },
+  action() {
+    const target = event.target;
+    if (target.classList.contains("btn-note-to-add")) {
+      methods.add(target);
+    }
+    if (target.classList.contains("up")) {
+      methods.up(target);
+    }
+    if (target.classList.contains("down")) {
+      methods.down(target);
+    }
+    if (target.classList.contains("remove")) {
+      methods.remove(target);
+    }
+    if (target.classList.contains("btn-add-sublist")) {
+      methods.addSublist(target);
+    }
+    if (target.classList.contains("btn-remove-sublist")) {
+      methods.removeSublist(target);
+    }
   }
 };
-
-document.querySelector(".btn-note-to-add").onclick = methods.add;
+methods.start();
