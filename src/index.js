@@ -1,5 +1,9 @@
 import "./styles.css";
 
+document.getElementById("app").innerHTML = `
+<ul class="list-of-notes"><li class="note-to-add"><input type="text" class="text-note-to-add" /><button class="btn-note-to-add">Add</button></li></ul>
+`;
+
 const methods = {
   add() {
     let note = document.createElement("li");
@@ -22,6 +26,7 @@ const methods = {
     noteContent.appendChild(buttonUp);
     let buttonDown = document.createElement("button");
     buttonDown.classList.add("down");
+    buttonDown.classList.add("hide");
     buttonDown.onclick = methods.down;
     buttonDown.appendChild(document.createTextNode("down"));
     noteContent.appendChild(buttonDown);
@@ -44,8 +49,17 @@ const methods = {
 
     let paOfBtn = this.parentNode;
     let ul = paOfBtn.parentNode;
-    ul.insertBefore(note, paOfBtn);
 
+    if (paOfBtn.previousSibling) {
+      alert(
+        paOfBtn.previousSibling.firstChild.firstChild.nextSibling.nextSibling
+          .classList
+      );
+      paOfBtn.previousSibling.firstChild.firstChild.nextSibling.nextSibling.classList.remove(
+        "hide"
+      );
+    }
+    ul.insertBefore(note, paOfBtn);
     this.previousSibling.value = "";
   },
   start() {},
@@ -93,6 +107,7 @@ const methods = {
     let ul = li.parentNode;
     let preEl = li.previousSibling;
     let emptyLi = document.createElement("li");
+    emptyLi.appendChild(document.createTextNode("up error"));
     ul.insertBefore(emptyLi, preEl);
     ul.replaceChild(li, emptyLi);
   },
@@ -106,6 +121,22 @@ const methods = {
     emptyLi.appendChild(document.createTextNode("down error"));
     ul.insertBefore(emptyLi, afterNextEl);
     ul.replaceChild(li, emptyLi);
+
+    if (afterNextEl.classList.contains("note-to-add")) {
+      this.classList.add("hide");
+      nextEl.firstChild.firstChild.nextSibling.nextSibling.classList.remove(
+        "hide"
+      );
+    }
+  },
+  hide() {
+    let div = this.parentNode;
+    let li = div.parentNode;
+    if (li.nextSibling.classList.contains("note-to-add")) {
+      if (this.classList.contains("down")) {
+        this.classList.add("hide");
+      }
+    }
   }
 };
 
