@@ -76,6 +76,28 @@ const methods = {
   remove(e) {
     let div = e.parentNode;
     let li = div.parentNode;
+    if (
+      e.previousSibling.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      ) &&
+      !e.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      )
+    ) {
+      li.nextSibling.firstChild.firstChild.nextSibling.classList.add("hide");
+    }
+    if (
+      e.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      ) &&
+      !e.previousSibling.previousSibling.previousSibling.previousSibling.classList.contains(
+        "hide"
+      )
+    ) {
+      li.previousSibling.firstChild.firstChild.nextSibling.nextSibling.classList.add(
+        "hide"
+      );
+    }
     li.parentNode.removeChild(li);
   },
   addSublist(e) {
@@ -163,23 +185,24 @@ const methods = {
     }
   },
   action() {
-    if (event.target.classList.contains("btn-note-to-add")) {
-      methods.add(event.target);
+    const target = event.target;
+    if (target.classList.contains("btn-note-to-add")) {
+      methods.add(target);
     }
-    if (event.target.classList.contains("up")) {
-      methods.up(event.target);
+    if (target.classList.contains("up")) {
+      methods.up(target);
     }
-    if (event.target.classList.contains("down")) {
-      methods.down(event.target);
+    if (target.classList.contains("down")) {
+      methods.down(target);
     }
-    if (event.target.classList.contains("remove")) {
-      methods.remove(event.target);
+    if (target.classList.contains("remove")) {
+      methods.remove(target);
     }
-    if (event.target.classList.contains("btn-add-sublist")) {
-      methods.addSublist(event.target);
+    if (target.classList.contains("btn-add-sublist")) {
+      methods.addSublist(target);
     }
-    if (event.target.classList.contains("btn-remove-sublist")) {
-      methods.removeSublist(event.target);
+    if (target.classList.contains("btn-remove-sublist")) {
+      methods.removeSublist(target);
     }
   }
 };
