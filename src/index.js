@@ -97,6 +97,7 @@ const methods = {
       );
     }
     li.parentNode.removeChild(li);
+    methods.save();
   },
   addSublist(e) {
     let div = e.parentNode;
@@ -120,6 +121,7 @@ const methods = {
 
     e.nextSibling.classList.remove("hide");
     e.classList.add("hide");
+    methods.save();
   },
   removeSublist(e) {
     let div = e.parentNode;
@@ -129,6 +131,7 @@ const methods = {
 
     e.previousSibling.classList.remove("hide");
     e.classList.add("hide");
+    methods.save();
   },
   up(e) {
     let div = e.parentNode;
@@ -149,6 +152,7 @@ const methods = {
       preEl.firstChild.firstChild.nextSibling.classList.remove("hide");
       e.classList.add("hide");
     }
+    methods.save();
   },
   down(e) {
     let div = e.parentNode;
@@ -172,15 +176,7 @@ const methods = {
       e.previousSibling.classList.remove("hide");
       nextEl.firstChild.firstChild.nextSibling.classList.add("hide");
     }
-  },
-  hide() {
-    let div = this.parentNode;
-    let li = div.parentNode;
-    if (li.nextSibling.classList.contains("note-to-add")) {
-      if (this.classList.contains("down")) {
-        this.classList.add("hide");
-      }
-    }
+    methods.save();
   },
   action() {
     const target = event.target;
@@ -204,4 +200,5 @@ const methods = {
     }
   }
 };
+
 methods.start();
