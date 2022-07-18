@@ -178,16 +178,6 @@ const methods = {
     }
     methods.save();
   },
-  // hide() {
-  //   let div = this.parentNode;
-  //   let li = div.parentNode;
-  //   if (li.nextSibling.classList.contains("note-to-add")) {
-  //     if (this.classList.contains("down")) {
-  //       this.classList.add("hide");
-  //     }
-  //   }
-  //   methods.save()
-  // },
   action() {
     const target = event.target;
     if (target.classList.contains("btn-note-to-add")) {
@@ -210,4 +200,5 @@ const methods = {
     }
   }
 };
+
 methods.start();
