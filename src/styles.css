@@ -1,3 +1,21 @@
 body {
   font-family: sans-serif;
 }
+
+li {
+  margin-top: 2px;
+}
+
+.note {
+}
+
+.note-text {
+  display: inline-block;
+  color: firebrick;
+  width: calc(100vw - 450px);
+  max-width: 350px;
+}
+
+.hide {
+  display: none;
+}
