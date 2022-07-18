@@ -117,6 +117,11 @@ const methods = {
       this.nextSibling.classList.remove("hide");
       preEl.firstChild.firstChild.nextSibling.nextSibling.classList.add("hide");
     }
+
+    if (preEl.firstChild.firstChild.nextSibling.classList.contains("hide")) {
+      preEl.firstChild.firstChild.nextSibling.classList.remove("hide");
+      this.classList.add("hide");
+    }
   },
   down() {
     let div = this.parentNode;
