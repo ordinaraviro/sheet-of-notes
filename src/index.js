@@ -130,6 +130,11 @@ const methods = {
         "hide"
       );
     }
+
+    if (this.previousSibling.classList.contains("hide")) {
+      this.previousSibling.classList.remove("hide");
+      nextEl.firstChild.firstChild.nextSibling.classList.add("hide");
+    }
   },
   hide() {
     let div = this.parentNode;
