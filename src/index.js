@@ -1,5 +1,3 @@
-import "./styles.css";
-
 const methods = {
   add(e) {
     let note = document.createElement("li");
